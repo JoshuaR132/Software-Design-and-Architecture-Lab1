@@ -1,15 +1,33 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        DiceRoll one = new DiceRoll(1);
+        DiceRoll six = new DiceRoll(6);
+        TwoDiceRoll two = new TwoDiceRoll(one, one);
+        TwoDiceRoll seven = new TwoDiceRoll(one, six);
+        TwoDiceRoll twelve = new TwoDiceRoll(six, six);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.format("Comparing %s to %s: %d%n", two, seven, two.compareTo(seven));
+        System.out.format("Comparing %s to %s: %d%n", seven, seven, seven.compareTo(seven));
+        System.out.format("Comparing %s to %s: %d%n", twelve, seven, twelve.compareTo(seven));
+
+        List<TwoDiceRoll> unsorted = new ArrayList<>();
+        unsorted.add(twelve);
+        unsorted.add(two);
+        unsorted.add(seven);
+
+        System.out.format("List before sort %n");
+        for (TwoDiceRoll roll : unsorted) {
+            System.out.format("%s with value %d%n", roll, roll.getValue());
+        }
+
+        System.out.format("List after sort %n");
+        List<TwoDiceRoll> sorted = unsorted.stream().sorted().toList();
+        for (TwoDiceRoll roll : sorted) {
+            System.out.format("%s with value %d%n", roll, roll.getValue());
+        }
         }
     }
 }
